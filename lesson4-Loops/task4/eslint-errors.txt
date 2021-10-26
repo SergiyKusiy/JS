@@ -1,0 +1,5 @@
+  eslintno-return-assign
+  eslintno-plusplus
+  eslintno-undef
+  eslinteqeqeq
+  eslintno-var
