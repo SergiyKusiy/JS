@@ -1,3 +1,5 @@
+// splitString('abcd efgh', 4) => 'abcd/n, efgh'
+
 const splitText = (str, len = 10) => {
    if (typeof str !== 'string') {
      return null;
