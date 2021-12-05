@@ -13,4 +13,4 @@ export function finishList() {
   liElem.after(liArr[2]);
   listElem.append(liArr[3]);
 }
-finishList();
+
