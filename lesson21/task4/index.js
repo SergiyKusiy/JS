@@ -1,13 +1,13 @@
-function getTitle() {
+export function getTitle() {
   return document.querySelector('.title').textContent;
 }
-function getDescription() {
+export function getDescription() {
   return document.querySelector('.about').innerText;
 }
-function getPlans() {
+export function getPlans() {
   return document.querySelector('.plans').innerHTML;
 }
-function getGoal() {
+export function getGoal() {
   return document.querySelector('.goal').outerHTML;
 }
 console.log(getTitle());
