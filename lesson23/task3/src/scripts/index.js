@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import { tasks } from './tasks.js';
-import { renderTasks } from './renderer.js';
+import { renderTasks } from '../../renderer.js';
 
 const createTask = () => {
   const inputElem = document.querySelector('.task-input');
