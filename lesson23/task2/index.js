@@ -1,71 +1,73 @@
-const renderNumbers = (from, to) => {
+const generateNumbersRange = (from, to) => {
   const result = [];
 
   for (let i = from; i <= to; i += 1) {
     result.push(i);
   }
+
   return result;
 };
 
-const renderSits = () =>
-  renderNumbers(1, 10)
+const getLineSets = () =>
+  generateNumbersRange(1, 10)
     .map(
       seatNumber => `
-       <div 
-         class="sector__seat" 
-         data-seat-number="${seatNumber}"
-       ></div>
-     `,
+         <div
+           class="sector__seat"
+           data-seat-number="${seatNumber}"
+         ></div>`,
     )
     .join('');
 
-const renderLines = () => {
-  const sitsStr = renderSits();
+const getSectorLines = () => {
+  const seatsStirng = getLineSets();
 
-  return renderNumbers(1, 10)
+  return generateNumbersRange(1, 10)
     .map(
       lineNumber => `
-       <div 
-         class="sector__line" 
-         data-line-number="${lineNumber}"
-       >${sitsStr}</div>
-     `,
+         <div
+           class="sector__line"
+           data-line-number="${lineNumber}"
+         >${seatsStirng}</div>`,
     )
     .join('');
 };
 
 const arenaElem = document.querySelector('.arena');
 
-const renderSeats = () => {
-  const linesStr = renderLines();
+const renderArena = () => {
+  const linesString = getSectorLines();
 
-  const sectorsElems = renderNumbers(1, 3)
+  const sectorsString = generateNumbersRange(1, 3)
     .map(
       sectorNumber => `
-       <div 
-         class="sector" 
-         data-sector-number="${sectorNumber}"
-       >${linesStr}</div>
-     `,
+         <div
+           class="sector"
+           data-sector-number="${sectorNumber}"
+         >${linesString}</div>`,
     )
     .join('');
 
-  arenaElem.innerHTML = sectorsElems;
+  arenaElem.innerHTML = sectorsString;
 };
 
+// eslint-disable-next-line consistent-return
 const onSeatSelect = event => {
   const isSeat = event.target.classList.contains('sector__seat');
 
   if (!isSeat) {
-    return;
+    return undefined;
   }
 
-  const [seatNumber] = event.target.dataset.seatNumber;
-  const [lineNumber] = event.target.closest('.sector__line').dataset.lineNumber;
-  const [sectorNumber] = event.target.closest('.sector').dataset.sectorNumber;
+  const sectorNumberElem = event.target.closest('.sector').dataset.sectorNumber;
+  const seatNumberElem = event.target.dataset.seatNumber;
+  const lineNumberElem = event.target.closest('.sector__line').dataset.lineNumber;
 
-  const boardElem = document.querySelector('.board__selected-seat');
-  boardElem.textContent = `S ${sectorNumber} - L ${lineNumber} - S ${seatNumber}`;
+  const selectedSeatElem = document.querySelector('.board__selected-seat');
+
+  selectedSeatElem.textContent = `S ${sectorNumberElem} - L ${lineNumberElem} - S ${seatNumberElem}`;
 };
 
 arenaElem.addEventListener('click', onSeatSelect);
+
+renderArena();
