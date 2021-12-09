@@ -1,4 +1,4 @@
-import { tasks } from './tasks.js';
+import { tasks } from '../tasks.js';
 // eslint-disable-next-line import/no-cycle
 import { toggleTask } from './index.js';
 

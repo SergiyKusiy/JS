@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-import { tasks } from './tasks.js';
+import { tasks } from '../tasks.js';
 import { renderTasks } from '../../renderer.js';
 
 const createTask = () => {
