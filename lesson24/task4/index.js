@@ -1,4 +1,4 @@
-const studentsBirthDays = students => {
+export const studentsBirthDays = students => {
   const birthObj = students.reduce((newObj, student) => {
     const month = new Date(student.birthDate).toLocaleString('en', { month: 'short' });
     // eslint-disable-next-line no-param-reassign
