@@ -1,99 +1,81 @@
-const listElem = document.querySelector('.list');
-const creatBtnElem = document.querySelector('.create-task-btn');
-const taskInputElem = document.querySelector('.task-input');
-
 const tasks = [
-  {
-    text: 'Buy milk and bread',
-    done: false,
-    id: 1,
-    date: 'Sun Feb 01 2021 12:00:00',
-  },
-  {
-    text: 'Pick up Tom from airport',
-    done: false,
-    id: 2,
-    date: 'Sun Feb 01 2021 10:00:00',
-  },
-  {
-    text: 'Visit party',
-    done: false,
-    id: 3,
-    date: 'Sun Feb 01 2021 11:00:00',
-  },
-  {
-    text: 'Visit doctor',
-    done: true,
-    id: 4,
-    date: 'Sun Feb 01 2021 13:00:00',
-  },
-  {
-    text: 'Buy meat',
-    done: true,
-    id: 5,
-    date: 'Sun Feb 01 2021 14:00:00',
-  },
+  { text: 'Buy milk', done: false, date: Date.now() },
+  { text: 'Pick up Tom from airport', done: false, date: Date.now() },
+  { text: 'Visit party', done: false, date: Date.now() },
+  { text: 'Visit doctor', done: true, date: Date.now() },
+  { text: 'Buy meat', done: true, date: Date.now() },
 ];
 
+const listElem = document.querySelector('.list');
+
+const createCheckbox = done => {
+  const checkbox = document.createElement('input');
+  checkbox.setAttribute('type', 'checkbox');
+  checkbox.checked = done;
+  checkbox.classList.add('list__item-checkbox');
+  // eslint-disable-next-line no-use-before-define
+  checkbox.addEventListener('click', event => toggleTask(event.target));
+
+  return checkbox;
+};
+
+const createLiElem = (done, checkboxElem, text, id) => {
+  const liElem = document.createElement('li');
+  liElem.classList.add('list__item');
+  liElem.setAttribute('data-id', id);
+  liElem.append(checkboxElem, text);
+
+  if (done) {
+    liElem.classList.add('list__item_done');
+  }
+
+  return liElem;
+};
+
 const renderTasks = tasksList => {
+  const sorteredTaskList = [
+    ...tasksList.filter(task => task.done === false),
+    ...tasksList.filter(task => task.done === true).sort((a, b) => b.date - a.date),
+  ];
+
+  const tasksElems = sorteredTaskList.map(({ text, done }, index) =>
+    createLiElem(done, createCheckbox(done), text, index + 1),
+  );
+
   listElem.innerHTML = '';
-  const tasksElems = tasksList
-    .sort(
-      (a, b) => a.done - b.done,
-      // new Date(b.date).getTime() - new Date(a.date).getTime()
-    )
-    .map(({ text, done, id }) => {
-      const listItemElem = document.createElement('li');
-      listItemElem.classList.add('list__item');
-      const checkbox = document.createElement('input');
-      checkbox.setAttribute('type', 'checkbox');
-      checkbox.setAttribute('data-id', id);
-      checkbox.checked = done;
-      checkbox.classList.add('list__item-checkbox');
-      if (done) {
-        listItemElem.classList.add('list__item_done');
-      }
-      listItemElem.append(checkbox, text);
-
-      return listItemElem;
-    });
-
   listElem.append(...tasksElems);
 };
 
-renderTasks(tasks);
-
-const onClickToggle = event => {
-  const isCheckBox = event.target.type === 'checkbox';
-  if (!isCheckBox) {
-    return;
+function createTask() {
+  const inputElem = document.querySelector('.task-input');
+  if (!inputElem.value) {
+    return null;
   }
 
-  tasks.forEach(el => {
-    const element = el;
-    if (element.id === +event.target.dataset.id) {
-      element.done = !element.done;
+  tasks.unshift({ text: inputElem.value, done: false, date: Date.now() });
+  inputElem.value = '';
+  renderTasks(tasks);
+  return undefined;
+}
+
+function toggleTask(checkbox) {
+  const liElem = checkbox.parentElement;
+  liElem.classList.toggle('list__item_done');
+
+  let index;
+  tasks.forEach((el, i) => {
+    if (el.text === liElem.textContent) {
+      index = i;
     }
   });
+
+  tasks[index].done = !tasks[index].done;
+  tasks[index].date = new Date();
+
   renderTasks(tasks);
-};
+}
 
-const onClickAdd = () => {
-  if (!taskInputElem.value) {
-    return;
-  }
+const btnCreate = document.querySelector('.create-task-btn');
+btnCreate.addEventListener('click', createTask);
 
-  const elemArr = {
-    text: taskInputElem.value,
-    done: false,
-    id: Date.now(),
-    date: new Date(Date.now()),
-  };
-  taskInputElem.value = '';
-  tasks.push(elemArr);
-  console.log(tasks);
-  renderTasks(tasks);
-};
-
-listElem.addEventListener('click', onClickToggle);
-creatBtnElem.addEventListener('click', onClickAdd);
+renderTasks(tasks);
