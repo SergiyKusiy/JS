@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-undef
-const compose =
+export const compose =
   (...funcs) =>
   value =>
     funcs.reduce((acc, func) => func(acc), value);
