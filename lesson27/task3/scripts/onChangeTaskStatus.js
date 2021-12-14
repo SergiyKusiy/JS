@@ -1,10 +1,7 @@
-// eslint-disable-next-line import/named
+import { getItem, setItem } from './storage.js';
 import { renderTasks } from './renderTasks.js';
-import { changeStatus } from './task.js';
 
-const MIN_TASK_LENGTH = 5;
-
-export const validateTaskLength = inputText => inputText.length >= MIN_TASK_LENGTH; // ? true: false;
+export const validateTaskLength = inputText => inputText.length < 5; // ? true: false;
 
 export const onChangeStatus = event => {
   const checkedId = event.target.getAttribute('data-id');
@@ -13,7 +10,17 @@ export const onChangeStatus = event => {
     return;
   }
 
-  changeStatus(checkedId, event.target.checked);
+  const TaskText = event.target.closest('.list__item').innerText;
+  console.log('length', TaskText.length);
+  if (validateTaskLength(TaskText)) {
+    event.preventDefault();
+    alert('invalid task');
+    return;
+  }
 
-  renderTasks();
+  const changedTask = getItem.find(el => el.id === +checkedId);
+  changedTask.done = event.target.checked;
+
+  console.log('done tasks on change', getItem);
+  renderTasks(getItem);
 };
