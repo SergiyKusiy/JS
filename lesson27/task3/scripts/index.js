@@ -1,6 +1,16 @@
-/* eslint-disable import/named */
-import { getItem } from './storage.js';
-import { createTask } from './createTask.js';
-import { renderTasks } from './todoList.js';
+// eslint-disable-next-line import/named
+import { renderTasks } from './renderTasks.js';
+import { initTodoListHandlers } from './todoList.js';
 
-renderTasks(getItem('tasksList'));
+document.addEventListener('DOMContentLoaded', () => {
+  renderTasks();
+  initTodoListHandlers();
+});
+
+const onStorageChange = e => {
+  if (e.key === 'tasksList') {
+    console.log(e.key);
+    renderTasks();
+  }
+};
+window.addEventListener('storage', onStorageChange);
