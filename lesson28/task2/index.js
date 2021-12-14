@@ -1,4 +1,4 @@
-const favorites = ['id-2'];
+export const favorites = ['id-2'];
 const tree = {
   id: 'id-1',
   name: 'Products',
