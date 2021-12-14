@@ -1,5 +1,6 @@
-import { renderTasks } from './renderTasks.js';
-import { getItem, setItem } from './storage.js';
+// eslint-disable-next-line import/named
+import { renderTasks } from './renderer';
+import { getItem, setItem } from './storage';
 
 export const onCreateTask = () => {
   const taskTitleInputElem = document.querySelector('.task-input');
@@ -10,12 +11,13 @@ export const onCreateTask = () => {
     return;
   }
   taskTitleInputElem.value = '';
-  const tasksList = getItem('tasksList') || [];
+  const taskList = getItem('taskList') || [];
 
-  const newTasksList = tasksList.concat({
+  const newTasksList = taskList.concat({
     text,
     done: false,
-    createDate: new Date().toISOString(),
+    startEvent: new Date().toISOString(),
+    // endEvent: new Date(),
     id: Math.random().toString(),
   });
 

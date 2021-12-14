@@ -1,5 +1,6 @@
-import { initTodoListHandlers } from './todoList.js';
-import { renderTasks } from './renderTasks.js';
+import { initTodoListHandlers } from './todoList';
+// eslint-disable-next-line import/named
+import { renderTasks } from './renderer';
 
 document.addEventListener('DOMContentLoaded', () => {
   renderTasks();
@@ -11,4 +12,5 @@ const onStorageChange = e => {
     renderTasks();
   }
 };
+
 window.addEventListener('storage', onStorageChange);
