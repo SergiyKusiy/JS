@@ -1,4 +1,4 @@
-const calc = initialValue => {
+export const calc = initialValue => {
   let res = initialValue;
 
   const calculator = {
