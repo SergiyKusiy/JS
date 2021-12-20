@@ -1,13 +1,20 @@
-const addImage = (imgSrc, callback) => {
-  const imageElem = document.createElement('img');
-  imageElem.setAttribute('alt', 'My photo');
-  imageElem.src = imgSrc;
+export const addImage = (imgSrc, callback) => {
+  const imgElem = document.createElement('img');
+  imgElem.setAttribute('alt', 'My photo');
+  imgElem.src = imgSrc;
+  const containerElem = document.querySelector('.page');
+  containerElem.append(imgElem);
 
-  const container = document.querySelector('.page');
-  container.append(imageElem);
+  const onImageLoaded = () => {
+    const { width, height } = imgElem;
+    callback(null, { width, height });
+  };
 
-  imageElem.addEventListener('load', () => callback(null, imageElem));
-  imageElem.addEventListener('error', () => callback('Image load is failed...'));
+  imgElem.addEventListener('load', onImageLoaded);
+
+  const onError = () => callback('Image load is failed...');
+
+  imgElem.addEventListener('error', onError);
 };
 
 // callack example
