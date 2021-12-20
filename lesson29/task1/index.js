@@ -10,7 +10,6 @@ export const addImage = (imgSrc, callback) => {
   imageElem.addEventListener('error', () => callback('Image load is failed...'));
 };
 
-// callack example
 const onImageLoaded = (error, imgElem) => {
   if (error) {
     console.log(error);
@@ -21,8 +20,8 @@ const onImageLoaded = (error, imgElem) => {
   sizeElem.textContent = `${width} x ${height}`;
 };
 
-// // test call
-// addImage(
-//   'https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg',
-//   onImageLoaded,
-// );
+// test call
+addImage(
+  'https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg',
+  onImageLoaded,
+);
