@@ -1,9 +1,15 @@
 export const addImage = (imgSrc, callback) => {
+<<<<<<< HEAD
   const imgElem = document.createElement('img');
   imgElem.setAttribute('alt', 'My photo');
   imgElem.src = imgSrc;
   const containerElem = document.querySelector('.page');
   containerElem.append(imgElem);
+=======
+  const imageElem = document.createElement('img');
+  imageElem.setAttribute('alt', 'My photo');
+  imageElem.src = imgSrc;
+>>>>>>> 284ddf914516c4f24f7992f1318446ff91517c77
 
   const onImageLoaded = () => {
     const { width, height } = imgElem;
@@ -17,7 +23,7 @@ export const addImage = (imgSrc, callback) => {
   imgElem.addEventListener('error', onError);
 };
 
-// callack example
+// callack exampl
 const onImageLoaded = (error, imgElem) => {
   if (error) {
     console.log(error);
