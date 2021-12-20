@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 export const addImage = (imgSrc, callback) => {
   const imgElem = document.createElement('img');
   imgElem.setAttribute('alt', 'My photo');
@@ -6,24 +7,20 @@ export const addImage = (imgSrc, callback) => {
   containerElem.append(imgElem);
 
   const onImageLoaded = () => {
-    const { width, height } = imgElem;
-    callback(null, { width, height });
+    callback(null, imgElem);
   };
 
   imgElem.addEventListener('load', onImageLoaded);
-
-  const onError = () => callback('Image load is failed...');
-
-  imgElem.addEventListener('error', onError);
+  imgElem.addEventListener('error', () => callback('Image load is failed...'));
 };
 
 // callack example
-const onImageLoaded = (error, imgElem) => {
+const onImageLoaded = (error, data) => {
   if (error) {
     console.log(error);
     return;
   }
-  const { width, height } = imgElem;
+  const { width, height } = data;
   const sizeElem = document.querySelector('.image-size');
   sizeElem.textContent = `${width} x ${height}`;
 };
