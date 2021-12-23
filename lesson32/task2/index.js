@@ -23,7 +23,7 @@
 //   return Promise.race(requests);
 // };
 
-// refactoring
+// refactoringl
 const request = url =>
   new Promise(resolve => {
     setTimeout(() => {
