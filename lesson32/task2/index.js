@@ -23,7 +23,7 @@
 //   return Promise.race(requests);
 // };
 
-// refactoringl
+// refactoring
 const request = url =>
   new Promise(resolve => {
     setTimeout(() => {
@@ -37,7 +37,7 @@ const request = url =>
     }, 1000 + Math.random() * (3000 - 1000));
   });
 
-const getUserASAP = userId => {
+export const getUserASAP = userId => {
   const servers = ['https://server.com/us', 'https://server.com/eu', 'https://server.com/au'];
 
   const userUrls = servers.map(serverUrls => `${serverUrls}/${userId}`);
