@@ -10,4 +10,4 @@ export const getUserBlogs = async users => {
   }
 };
 
-getUserBlogs(['google', 'zoom']).then(res => console.log(res));
+// getUserBlogs(['google', 'zoom']).then(res => console.log(res));
