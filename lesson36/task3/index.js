@@ -1,5 +1,5 @@
 /* eslint-disable no-return-await */
-const getUserBlogs = async users => {
+export const getUserBlogs = async users => {
   try {
     const fetchUser = userId =>
       fetch(`https://api.github.com/users/${userId}`).then(res => res.json());
